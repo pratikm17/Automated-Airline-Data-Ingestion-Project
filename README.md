@@ -50,3 +50,12 @@ The Airline Data Ingestion project provided valuable learning experiences and pr
 - **Error Handling and Monitoring**: Implementing robust error handling mechanisms and monitoring solutions to detect and address pipeline failures in real-time proved to be challenging, requiring iterative refinement of the pipeline design.
 
 Overall, overcoming these challenges and successfully implementing the Airline Data Ingestion pipeline enhanced my AWS skills and deepened my understanding of building scalable and reliable data pipelines in a cloud environment.
+
+## Usage
+
+To execute the **Automated Airline Data Ingestion** pipeline, simply upload a file to the designated S3 directory. Once the file is uploaded, the pipeline is automatically triggered, and the entire execution process is carried out seamlessly. The processed data is then ingested into the target Redshift table.
+
+Throughout the process, notifications will be sent via SNS:
+- A **success notification** is sent to your email once the data is successfully processed and ingested into Redshift.
+- In case of any errors during the process (e.g., while crawling or during the ETL job), a **failure notification** is sent to inform you of the issue.
+

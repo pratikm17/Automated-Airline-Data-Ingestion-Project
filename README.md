@@ -1,9 +1,28 @@
 # Automated Airline Data Ingestion Project
 
 ## Overview
-The Airline Data Ingestion project aims to automate the ingestion of daily flights transactional data into a Redshift data warehouse using AWS services. The process begins with data landing in an S3 bucket, which triggers a series of ETL operations orchestrated by Step Functions. Glue is utilized for data extraction, transformation, and loading, ensuring that the data is cleansed, enriched, and ready for analysis.
+This project automates the ingestion, processing, and storage of airline data in Amazon Redshift. The workflow is triggered by an S3 event when new files are uploaded to a specific S3 location. AWS Step Functions orchestrate the process, with each step handling different stages of data ingestion and error handling.
+
+### Workflow Summary
+
+1. **Data Upload**: New airlines_booking_data files are uploaded to a specific S3 bucket.
+2. **Event Trigger**: EventBridge detects file uploads and triggers an AWS Step Function.
+3. **Data Crawling**: AWS Glue catalogs the data in the Glue Data Catalog.
+4. **ETL Job**: AWS Glue Jobs performs ETL and loads data into Redshift.
+5. **Notifications**: Success and failure notifications are sent via SNS to email.
+
 
 ![Data Architecture](Architecture.png)
+*This diagram illustrates the automated workflow for the airline data ingestion pipeline.*
+
+The architecture consists of:
+- **Amazon S3**: A designated S3 bucket stores raw airline data files.
+- **EventBridge**: Listens for `PUT` events in the S3 bucket to trigger the pipeline.
+- **Step Functions**: Orchestrates the data ingestion process.
+- **AWS Glue**: Crawlers scan data, and ETL jobs transform and prepare it for analysis.
+- **Amazon Redshift**: Stores processed data for querying and analysis.
+- **SNS**: Provides notifications for successful and failed runs.
+
 
 ## Steps Involved
 1. **S3 Bucket Creation**: A dedicated S3 bucket is created to store incoming daily flights data, organized in a Hive style partitioning format based on date. This ensures efficient data retrieval and management.
